@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from celery.schedules import crontab
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "u+po558+z75^7=e@9wd=+js812!uzhv7_6)6umlujimh$%-=#4"
+SECRET_KEY = os.getenv("SECRET_KEY", "u+po558+z75^7=e@9wd=+js812!uzhv7_6)6umlujimh$%-=#4")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", "True"))
 
 ALLOWED_HOSTS = []
 
@@ -133,8 +134,8 @@ STATIC_URL = "/static/"
 
 # REDIS related settings
 
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+CELERY_RESULT_BACKEND = os.getenv("REDIS_URL", "redis://localhost:6379")
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
@@ -147,3 +148,5 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(),
     },
 }
+
+django_heroku.settings(locals())
