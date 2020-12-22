@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block links %}
+<link href="{% static 'css/comment.css' %}" rel="stylesheet">
+{% endblock links %}
+
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{ post.title }}</h1>
+        <p class="lead">Link >> <a href="{{ post.link }}">Click</a></p>
+        <hr class="my-4">
+        <p>Date: {{ post.creation_date|date }} | Votes: {{ post.amount_of_upvotes }} | Author: {{ post.author_name }}</p>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Authors name</th>
+                <th scope="col">Message</th>
+                <th scope="col">Creation_date</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for comment in com_list %}
+        <tr>
+            <th scope="row">{{ comment.author_name }}</th>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.creation_date|date }}</td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

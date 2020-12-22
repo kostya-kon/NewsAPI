@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block links %}
+<link href="{% static 'css/list.css' %}" rel="stylesheet">
+{% endblock links %}
+
+
+{% block content %}
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Points</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Authors name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for post in object_list %}
+        <tr>
+            <th scope="row">
+                {{ post.amount_of_upvotes}}
+                <a href="{% url 'rate' post.pk %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                </svg> 
+                </a>
+            </th>
+            <td><a href="{{ post.link }}">{{ post.title }}</a></td>
+            <td>{{ post.creation_date|date }}</td>
+            <td>{{ post.author_name}}</td>
+            <td><a href="{% url 'comment' post.pk %}">Comments</a></td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
