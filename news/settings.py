@@ -145,7 +145,7 @@ CELERY_TIMEZONE = "Europe/London"
 CELERY_BEAT_SCHEDULE = {
     "reset": {
         "task": "newsapp.tasks.reset",
-        "schedule": crontab(),
+        "schedule": crontab(minute=0, hour=0),
     },
 }
 
