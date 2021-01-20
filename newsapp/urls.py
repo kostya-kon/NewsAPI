@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import PostAPIView, CommentAPIView, SinglePostAPIView, RateAPIView
 
 app_name = "newsapp"

@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from .models import Post, Comment
 from django.views import View
 from django.http import HttpResponsePermanentRedirect
 
-from .serialaizers import PostSerializer, CommentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import (
@@ -12,6 +10,9 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
+
+from .models import Post, Comment
+from .serialaizers import PostSerializer, CommentSerializer
 
 
 class NewsView(ListView):
@@ -62,6 +63,7 @@ class SinglePostAPIView(RetrieveUpdateDestroyAPIView):
 # I want that when a GET request is made, not all objects are returned,
 # but only comments for a post with a specific ID
 # I cant realize it with Generic`s, that the reason of using APIView here
+
 class CommentAPIView(APIView):
     """API View for Comments"""
 
@@ -110,7 +112,6 @@ class CommentAPIView(APIView):
 
     def delete(self, request, id_post, id_comment):
         """Deleting comment by it id and post id"""
-        # Get object with this pk
         comment = get_object_or_404(Comment.objects.all(), pk=id_comment)
         comment.delete()
 

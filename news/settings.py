@@ -94,9 +94,6 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 
-# Здесь вышел небольшой конфликт black делает вид, который есть сейчас,
-# но при этом не проходит flake8 из-за длиный строк, оставил как есть,
-# что бы не ломать настройки
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
